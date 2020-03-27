@@ -1,0 +1,68 @@
+#include<stdio.h>
+#include<iostream>
+#include<conio.h>
+using namespace std;
+class MYTIME
+{
+    public:
+      int hrs;
+      int min;
+      int sec;
+      friend MYTIME operator +(MYTIME a,MYTIME b);
+      void mtin()
+       {
+           cin>>hrs>>min>>sec;
+       }
+      void mtout()
+       {
+           cout<<"sum = "<<hrs<<" "<<min<<" "<<sec;
+       }
+      MYTIME()
+      {
+          hrs=0;
+          sec=0;
+          min=0;
+      }
+     void operator ++()
+      {
+          sec+=5;
+          min+=5;
+          hrs+=5;
+      }
+};
+void tune(MYTIME &a)
+{
+    if(a.sec>=60)
+    {
+        a.min+=(a.sec/60);
+        a.sec=a.sec%60;
+    }    
+    if(a.min>=60)
+    {
+        a.hrs+=(a.min/60);
+        a.min=a.min%60;
+    }
+}
+MYTIME operator +(MYTIME a,MYTIME b)
+{
+    MYTIME c;
+    c.sec=a.sec + b.sec;
+    tune(c);
+    c.min+=(a.min + b.min);
+    tune(c);
+    c.hrs+=(a.hrs + b.hrs);
+    return c;
+}
+main()
+ {
+    MYTIME a,b,c;
+    a.mtin();
+    b.mtin();
+    c=a+b;
+    c.mtout();
+    ++b;
+    tune(b);
+    cout<<"\nIncrement of Time Object 2 = "<<b.hrs<<" "<<b.min<<" "<<b.sec;
+    getch();
+    return 0;
+}
